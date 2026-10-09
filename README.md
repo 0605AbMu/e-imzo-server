@@ -227,18 +227,21 @@ Obraz GHCR da SemVer qoidalariga binoan teglanadi:
 
 ## 👨‍💻 Loyiha Boshqaruvchilari (Maintainerlar) uchun
 
-Agar siz ushbu obrazni yangilab, GHCR ga yangi versiya chiqarmoqchi bo'lsangiz:
+Yangi versiya reliz qilib, GHCR ga yangi Docker obraz chiqarish tartibi:
 
-```bash
-# 1. Kod o'zgarishlarini master branchga yuboring:
-git push origin master
+1. `assets/` papkasiga yangi versiya arxivini joylashtiring (masalan: `assets/e-imzo-server-v2.2.1.zip`).
+2. O'zgarishlarni Git ga commit qilib, teg qo'ying va push qiling:
+   ```bash
+   git add assets/
+   git commit -m "chore: add e-imzo-server v2.2.1 distribution"
+   git push origin master
 
-# 2. Yangi versiya tegi qo'ying:
-git tag v2.2.1
-git push origin v2.2.1
-```
+   # Teg qo'yish va push qilish:
+   git tag v2.2.1
+   git push origin v2.2.1
+   ```
 
-GitHub Actions avtomatik tarzda:
-- Multi-stage build qiladi;
-- GHA keshlaridan foydalanib bir necha soniyada yig'adi;
-- GHCR ga `2.2.1`, `2.2`, `2` va `latest` teglarini yuklaydi.
+> ⚠️ **Qat'iy CI tekshiruvi (Asset Validation):**
+> Teg push qilinganda (`v2.2.1`), GitHub Actions avtomatik tarzda `assets/` papkasidan teg versiyasiga mos keluvchi arxivni (`*2.2.1*.zip`) qidiradi:
+> - **Agar mos arxiv mavjud bo'lsa:** O'sha asset asosida multi-stage Docker build boshlanadi va GHCR ga `2.2.1`, `2.2`, `2`, `latest` teglari muvaffaqiyatli publish qilinadi.
+> - **Agar mos arxiv topilmasa:** CI darhol **FAIL** bo'ladi va xatolik chiqaradi (`CI failed: No asset archive found in assets/ for release tag v2.2.1`). Bu xato yoki bo'sh relizlar chiqib ketishining oldini oladi.

@@ -28,6 +28,38 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Validate tag asset in assets directory
+        id: asset_check
+        run: |
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            TAG="${{ github.ref_name }}"
+            VERSION="${TAG#v}"
+            echo "Processing tag release: ${TAG} (target version: ${VERSION})"
+            
+            # Search for zip in assets/ matching version
+            MATCH=$(find assets -maxdepth 1 -type f -name "*${VERSION}*.zip" | head -n 1)
+            
+            if [ -z "$MATCH" ]; then
+              echo "::error title=Asset Not Found::CI failed: No asset archive found in 'assets/' for release tag '${TAG}' (version '${VERSION}')!"
+              echo "Current files in assets/:"
+              ls -la assets/
+              exit 1
+            fi
+            
+            ASSET_FILE=$(basename "$MATCH")
+            echo "Successfully found asset for tag ${TAG}: ${ASSET_FILE}"
+            echo "ASSET_FILE=${ASSET_FILE}" >> $GITHUB_ENV
+          else
+            # For manual workflow_dispatch without tag, find any available zip
+            MATCH=$(find assets -maxdepth 1 -type f -name "e-imzo-server-*.zip" | head -n 1)
+            if [ -z "$MATCH" ]; then
+              echo "::error title=No Assets::CI failed: No asset zip files found in 'assets/'!"
+              exit 1
+            fi
+            ASSET_FILE=$(basename "$MATCH")
+            echo "ASSET_FILE=${ASSET_FILE}" >> $GITHUB_ENV
+          fi
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -70,6 +102,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
+            ASSET_ZIP=${{ env.ASSET_FILE }}
             APP_VERSION=${{ steps.meta.outputs.version }}
             VCS_REF=${{ github.sha }}
             BUILD_DATE=${{ fromJSON(steps.meta.outputs.json).created }}

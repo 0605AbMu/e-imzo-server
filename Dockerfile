@@ -5,6 +5,8 @@
 # ==============================================================================
 FROM alpine:3.22 AS builder
 
+ARG ASSET_ZIP=""
+
 WORKDIR /src
 
 # Copy assets archive or directory
@@ -13,13 +15,22 @@ COPY assets/ /src/assets/
 # Unpack archive and optimize libraries
 RUN set -eux; \
     mkdir -p /build/lib /build/config /build/keys; \
-    if [ -f /src/assets/e-imzo-server-*.zip ]; then \
-        unzip -q /src/assets/e-imzo-server-*.zip -d /tmp/unpacked; \
-        APP_ROOT=$(find /tmp/unpacked -maxdepth 2 -name "e-imzo-server.jar" -exec dirname {} \; | head -n 1); \
+    if [ -n "${ASSET_ZIP}" ]; then \
+        if [ ! -f "/src/assets/${ASSET_ZIP}" ]; then \
+            echo "Error: Specified ASSET_ZIP '/src/assets/${ASSET_ZIP}' does not exist!" >&2; \
+            exit 1; \
+        fi; \
+        ZIP_PATH="/src/assets/${ASSET_ZIP}"; \
     else \
-        echo "Error: Archive assets/e-imzo-server-*.zip not found" >&2; \
+        ZIP_PATH=$(find /src/assets -maxdepth 1 -name "e-imzo-server-*.zip" -type f | head -n 1); \
+    fi; \
+    if [ -z "${ZIP_PATH}" ] || [ ! -f "${ZIP_PATH}" ]; then \
+        echo "Error: No asset zip file found in /src/assets!" >&2; \
         exit 1; \
     fi; \
+    echo "Unpacking target asset: ${ZIP_PATH}"; \
+    unzip -q "${ZIP_PATH}" -d /tmp/unpacked; \
+    APP_ROOT=$(find /tmp/unpacked -maxdepth 2 -name "e-imzo-server.jar" -exec dirname {} \; | head -n 1); \
     \
     # Copy core jar and configs \
     cp "${APP_ROOT}/e-imzo-server.jar" /build/; \
