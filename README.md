@@ -1,10 +1,13 @@
-# E-IMZO Server — Docker Foydalanuvchi Qo'llanmasi
+# E-IMZO Server (Unofficial) — Docker Foydalanuvchi Qo'llanmasi
 
+[![Status](https://img.shields.io/badge/status-unofficial-red.svg)](#-masuliyat-va-ogohlantirish-disclaimer)
 [![Docker Image](https://img.shields.io/badge/GHCR-ghcr.io%2F0605abmu%2Fe--imzo--server-blue?logo=docker)](https://github.com/0605AbMu/e-imzo-server/pkgs/container/e-imzo-server)
 [![Version](https://img.shields.io/badge/version-2.2.1-green)](https://github.com/0605AbMu/e-imzo-server/releases)
 [![Java](https://img.shields.io/badge/Java-8%20(Amazon%20Corretto)-orange)](https://aws.amazon.com/corretto/)
 [![Alpine](https://img.shields.io/badge/Alpine-3.22-brightgreen)](https://alpinelinux.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+> ⚠️ **Unofficial:** Ushbu loyiha mustaqil ochiq kodli hamjamiyat (community) tomonidan tayyorlangan bo'lib, O'zbekiston Respublikasi Davlat soliq qo'mitasi yoki rasmiy E-IMZO tizimining rasmiy mahsuloti emas.
 
 Ushbu qo'llanma **E-IMZO Server** (elektron raqamli imzolarni tekshirish va vaqt tamg'asi olish xizmati)ning tayyor Docker obrazidan foydalanish uchun mo'ljallangan.
 
