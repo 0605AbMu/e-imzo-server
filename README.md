@@ -4,6 +4,7 @@
 [![Version](https://img.shields.io/badge/version-2.2.1-green)](https://github.com/0605AbMu/e-imzo-server/releases)
 [![Java](https://img.shields.io/badge/Java-8%20(Amazon%20Corretto)-orange)](https://aws.amazon.com/corretto/)
 [![Alpine](https://img.shields.io/badge/Alpine-3.22-brightgreen)](https://alpinelinux.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Ushbu qo'llanma **E-IMZO Server** (elektron raqamli imzolarni tekshirish va vaqt tamg'asi olish xizmati)ning tayyor Docker obrazidan foydalanish uchun mo'ljallangan.
 
@@ -223,6 +224,16 @@ Obraz GHCR da SemVer qoidalariga binoan teglanadi:
 2. **Konteyner foydalanuvchisi:** Obraz `root` huquqlarisiz, alohida `eimzo` (`UID 10001`) foydalanuvchisi ostida ishlaydi.
 3. **Parollarni saqlash:** `VPN_KEY_PASSWORD` kabi parollarni ochiq fayllarda qoldirmaslik uchun `.env` faylidan foydalaning va uni `.gitignore` ga qo'shing.
 
+> 🛡️ Zaifliklar haqida xabar berish va to'liq xavfsizlik qoidalari: [.github/SECURITY.md](.github/SECURITY.md)
+
+---
+
+## ⚠️ Mas'uliyat va Ogohlantirish (Disclaimer)
+
+1. **Rasmiy maqom (Disclaimer of Affiliation):** Ushbu loyiha mustaqil ochiq kodli hamjamiyat tashabbusi bo'lib, O'zbekiston Respublikasi Davlat soliq qo'mitasi (DSQ), "Yangi texnologiyalar" IAM yoki E-IMZO davlat xizmatlarining rasmiy mahsuloti emas.
+2. **Kriptografik kalitlar va ma'lumotlar xavfsizligi:** Docker obrazida hech qanday maxfiy kalitlar, parollar yoki sertifikatlar saqlanmaydi va tarqatilmaydi. Tashkilot kalitlarini (`.key`), sertifikatlar omborini (`.jks`) va ularning parollarini xavfsiz saqlash, shuningdek server portlariga kirishni cheklash to'liq **foydalanuvchi va tizim administratori mas'uliyatida**.
+3. **Javobgarlik chegarasi (Limitation of Liability):** Ushbu dasturiy ta'minot "qanday bo'lsa shunday" (*AS IS*) tamoyili asosida taqdim etiladi. Raqamli imzo operatsiyalari, texnik uzilishlar, kiberxavfsizlik hodisalari yoki boshqa har qanday to'g'ridan-to'g'ri/bilvosita zararlar uchun loyiha mualliflari javobgarlikni o'z zimmasiga olmaydi.
+
 ---
 
 ## 👨‍💻 Loyiha Boshqaruvchilari (Maintainerlar) uchun
@@ -245,3 +256,10 @@ Yangi versiya reliz qilib, GHCR ga yangi Docker obraz chiqarish tartibi:
 > Teg push qilinganda (`v2.2.1`), GitHub Actions avtomatik tarzda `assets/` papkasidan teg versiyasiga mos keluvchi arxivni (`*2.2.1*.zip`) qidiradi:
 > - **Agar mos arxiv mavjud bo'lsa:** O'sha asset asosida multi-stage Docker build boshlanadi va GHCR ga `2.2.1`, `2.2`, `2`, `latest` teglari muvaffaqiyatli publish qilinadi.
 > - **Agar mos arxiv topilmasa:** CI darhol **FAIL** bo'ladi va xatolik chiqaradi (`CI failed: No asset archive found in assets/ for release tag v2.2.1`). Bu xato yoki bo'sh relizlar chiqib ketishining oldini oladi.
+
+---
+
+## 📄 Litsenziya (License)
+
+Ushbu loyiha [MIT License](LICENSE) shartlari asosida litsenziyalangan.
+
