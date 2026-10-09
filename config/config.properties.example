@@ -1,0 +1,46 @@
+# ==============================================================================
+# E-IMZO Server Konfiguratsiya fayli (config.properties)
+# ==============================================================================
+
+# Server tinglaydigan tarmoq manzili va porti
+listen.ip=0.0.0.0
+listen.port=8080
+
+# VPN ulanish parametrlari
+# Production: host=vpn.e-imzo.uz, port=3443
+# Test:       host=testvpn.e-imzo.uz, port=2443
+vpn.tls.enabled=yes
+vpn.connect.host=vpn.e-imzo.uz
+vpn.connect.port=3443
+
+# VPN kaliti va paroli (NIC / E-IMZO tomonidan berilgan .key fayl)
+vpn.key.file.path=keys/example.uz-2026-10-24.key
+vpn.key.password=SizningVPNKalitParolingiz
+
+# Ishonchli sertifikatlar ombori (Truststore)
+vpn.truststore.file.path=keys/vpn.jks
+# vpn.truststore.password=12345678
+
+# Vaqt tamg'asi (Timestamping / TSP) sertifikatlari
+tsp.jks.file.path=keys/truststore.jks
+# tsp.jks.file.password=12345678
+
+# VPN Keep-Alive sozlamalari (soniyalarda)
+vpn.keepalive.time.sec=60
+vpn.keepalive.timeout.sec=20
+
+# Kesh sozlamalari (local yoki redis)
+cache.type=local
+cache.local.key.ttl.seconds=300
+cache.local.clear.interval.seconds=60
+
+# Redis kesh sozlamalari (agar cache.type=redis bo'lsa)
+# cache.redis.host=redis
+# cache.redis.port=6379
+# cache.redis.password=
+# cache.redis.db=0
+
+# Monitoring / Prometheus Metrikalar (ixtiyoriy)
+metrics.server.enabled=false
+metrics.server.listen.ip=0.0.0.0
+metrics.server.listen.port=8081

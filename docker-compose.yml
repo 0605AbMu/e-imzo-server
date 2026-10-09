@@ -1,0 +1,58 @@
+services:
+  e-imzo-server:
+    # Build locally or use published image from GHCR:
+    # image: ghcr.io/0605abmu/e-imzo-server:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/0605abmu/e-imzo-server:latest
+    container_name: e-imzo-server
+    restart: unless-stopped
+    ports:
+      - "8080:8080" # Asosiy HTTP API porti
+      # - "8081:8081" # Prometheus metrics porti (agar METRICS_ENABLED=true bo'lsa yoqing)
+    environment:
+      # Muhit turi: 'prod' (vpn.e-imzo.uz:3443) yoki 'test' (testvpn.e-imzo.uz:2443)
+      - EIMZO_ENV=prod
+
+      # VPN Kalit paroli (keys/ ichidagi .key fayl uchun parol)
+      - VPN_KEY_PASSWORD=sizning_kalit_parolingiz
+
+      # Agar keys/ papkasida bir nechta .key fayl bo'lsa, aniq nomini ko'rsating:
+      # - VPN_KEY_FILE_PATH=keys/my-company-2026.key
+
+      # Agar vpn.jks va truststore.jks paroli mavjud bo'lsa:
+      # - VPN_TRUSTSTORE_PASSWORD=12345678
+      # - TSP_JKS_FILE_PASSWORD=12345678
+
+      # Kesh turi: 'local' yoki 'redis'
+      - CACHE_TYPE=local
+
+      # JVM xotira parametrlari (RAM resursiga qarab moslashtiring)
+      - JAVA_OPTS=-Xms256m -Xmx512m -XX:+UseG1GC
+
+      # Vaqt mintaqasi
+      - TZ=Asia/Tashkent
+
+    volumes:
+      # VPN kalitlari va sertifikatlar (keys/*.key, vpn.jks, truststore.jks)
+      - ./keys:/opt/e-imzo-server/keys:ro
+
+      # (Ixtiyoriy) Agar tayyor config.properties faylini o'zingiz bermoqchi bo'lsangiz:
+      # - ./config/config.properties:/opt/e-imzo-server/config/config.properties:ro
+
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1024M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1:8080/info > /dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s

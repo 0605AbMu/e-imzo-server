@@ -1,0 +1,11 @@
+.git
+.github
+*.md
+.gitignore
+.dockerignore
+docs/
+docker-compose*.yml
+tests/
+tmp/
+keys/*.key
+keys/*.jks

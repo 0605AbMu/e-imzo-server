@@ -1,0 +1,21 @@
+# Git ignore for e-imzo-server
+
+# Sensitive keys and certificates
+keys/*.key
+keys/*.jks
+*.key
+*.jks
+
+# Logs and runtime files
+logs/
+*.log
+tmp/
+.temp/
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
