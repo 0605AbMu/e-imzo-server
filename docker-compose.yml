@@ -1,10 +1,5 @@
 services:
   e-imzo-server:
-    # Build locally or use published image from GHCR:
-    # image: ghcr.io/0605abmu/e-imzo-server:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
     image: ghcr.io/0605abmu/e-imzo-server:latest
     container_name: e-imzo-server
     restart: unless-stopped
