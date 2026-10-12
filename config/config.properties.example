@@ -39,6 +39,7 @@ cache.local.clear.interval.seconds=60
 # cache.redis.port=6379
 # cache.redis.password=
 # cache.redis.db=0
+# cache.redis.key.ttl.seconds=120
 
 # Monitoring / Prometheus Metrikalar (ixtiyoriy)
 metrics.server.enabled=false

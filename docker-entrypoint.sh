@@ -102,6 +102,7 @@ set_property "cache.type" "$CACHE_TYPE"
 [ -n "$CACHE_REDIS_PORT" ] && set_property "cache.redis.port" "$CACHE_REDIS_PORT"
 [ -n "$CACHE_REDIS_PASSWORD" ] && set_property "cache.redis.password" "$CACHE_REDIS_PASSWORD"
 [ -n "$CACHE_REDIS_DB" ] && set_property "cache.redis.db" "$CACHE_REDIS_DB"
+[ -n "$CACHE_REDIS_KEY_TTL_SECONDS" ] && set_property "cache.redis.key.ttl.seconds" "$CACHE_REDIS_KEY_TTL_SECONDS"
 
 [ -n "$METRICS_ENABLED" ] && set_property "metrics.server.enabled" "$METRICS_ENABLED"
 [ -n "$METRICS_PORT" ] && set_property "metrics.server.listen.port" "$METRICS_PORT"
