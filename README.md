@@ -70,6 +70,13 @@ services:
       # Kesh turi ('local' yoki 'redis')
       - CACHE_TYPE=local
 
+      # Redis kesh sozlamalari (agar CACHE_TYPE=redis bo'lsa):
+      # - CACHE_REDIS_HOST=redis
+      # - CACHE_REDIS_PORT=6379
+      # - CACHE_REDIS_PASSWORD=sizning_redis_parolingiz
+      # - CACHE_REDIS_DB=0
+      # - CACHE_REDIS_KEY_TTL_SECONDS=120
+
       # JVM xotirasi (standart: 256MB min, 512MB max)
       - JAVA_OPTS=-Xms256m -Xmx512m -XX:+UseG1GC
       - TZ=Asia/Tashkent
@@ -210,8 +217,11 @@ Obraz GHCR da SemVer qoidalariga binoan teglanadi:
 | `LISTEN_PORT` | `8080` | Konteyner ichidagi HTTP port |
 | `LISTEN_IP` | `0.0.0.0` | Konteyner ichidagi IP |
 | `CACHE_TYPE` | `local` | Kesh turi: `local` yoki `redis` |
-| `CACHE_REDIS_HOST` | *(Bo'sh)* | Redis hosti (agar `CACHE_TYPE=redis` bo'lsa) |
+| `CACHE_REDIS_HOST` | *(Bo'sh / `127.0.0.1`)* | Redis host manzili (agar `CACHE_TYPE=redis` bo'lsa) |
 | `CACHE_REDIS_PORT` | `6379` | Redis porti |
+| `CACHE_REDIS_PASSWORD` | *(Bo'sh)* | Redis ulanish paroli (agar Redis parol bilan himoyalangan bo'lsa) |
+| `CACHE_REDIS_DB` | `0` | Redis ma'lumotlar bazasi indeksi (database index) |
+| `CACHE_REDIS_KEY_TTL_SECONDS` | `120` | Redis kesh yashash muddati (soniyalarda) |
 | `JAVA_OPTS` | `-Xms256m -Xmx512m -XX:+UseG1GC` | Java JVM xotira parametrlari |
 | `TZ` | `Asia/Tashkent` | Konteyner vaqt mintaqasi |
 
